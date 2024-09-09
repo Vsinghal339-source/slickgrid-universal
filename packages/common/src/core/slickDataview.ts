@@ -1452,7 +1452,8 @@ export class SlickDataView<TData extends SlickDataItem = any> implements CustomD
           } else {
             if (preserveHiddenOnSelectionChange && gridOptions.multiSelect) {
               // remove rows whose id is on the list
-              rowIds = this.selectedRowIds?.filter((id) => args.ids.indexOf(id) === -1);
+              const argsIdsSet = new Set(args.ids);
+              rowIds = this.selectedRowIds?.filter((id) => !argsIdsSet.has(id));
             } else {
               rowIds = [];
             }
